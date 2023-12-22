@@ -18,6 +18,11 @@ builder.Services.AddDbContext<StoreContext>(opt =>{
 
 // Adding the ProductRepository service to startup project to pick requests from API controller
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
+
+//This is the service which we inject in controller and we add generic repository like this
+builder.Services.AddScoped(typeof(IGenericRepository<>),typeof(GenericRepository<>)); // Since it is generic we add like this
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies()); // o inject automapper service
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -26,6 +31,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseStaticFiles(); //To access static content from API/postman
 
 app.UseHttpsRedirection();
 
