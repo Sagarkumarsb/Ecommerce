@@ -28,6 +28,9 @@ if (app.Environment.IsDevelopment())
 
 app.UseStaticFiles(); //To access static content from API/postman
 
+//adding cors to our API
+app.UseCors("CorsPolicy");
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
